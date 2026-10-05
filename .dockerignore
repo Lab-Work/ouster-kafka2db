@@ -1,9 +1,20 @@
+*.env
+.env
 .git
+# Nested git dirs too: the Drone clone-private-repo step clones the lv_*
+# connectors into the build context with a tokenised URL, which git stores
+# in each clone's .git/config. A bare `.git` only matches the context root,
+# so without this the final stage's `COPY . .` would bake that token into
+# the pushed image. Connector *source* is unaffected — it still reaches the
+# builder, and the connectors read their version from _version.py, not git.
+**/.git
 .gitignore
 *.crt
 *.key
 *.p12
 *.pem
-.env
 *.log
 __pycache__
+venv
+.venv
+.DS_Store

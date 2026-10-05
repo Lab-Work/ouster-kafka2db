@@ -1,8 +1,22 @@
-confluent-kafka
-requests==2.31.0
-python-dotenv
-psycopg
-pytz
+# LV connectors — install from your local checkout or private package
+# index. During development, point pip at the sibling repos:
+#
+#   pip install -e ../lv_telemetry_connector
+#   pip install -e ../lv_kafka_connector
+#   pip install -e ../lv_db_connector
+#
+# In the image they come from the Drone clone-private-repo step (each
+# connector's default branch, COPYed into the builder stage), so connector
+# fixes arrive on the next build without a repo edit.
+
+./lv_telemetry_connector
+./lv_kafka_connector
+./lv_db_connector
+
+# Third-party. confluent-kafka and psycopg[binary,pool] come transitively via
+# the connectors; don't list them here. psycopg >= 3.1 is what pipelines
+# executemany() (lv_db_connector requires it).
+python-dotenv>=1.0
+# frame_timestamp_dt is converted to ZoneInfo("US/Central"), a legacy zone
+# name that newer Debian base images no longer ship in /usr/share/zoneinfo.
 tzdata
-psycopg-binary
-filelock
