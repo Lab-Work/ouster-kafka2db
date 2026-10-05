@@ -255,7 +255,7 @@ writer's last committed offsets.
   ```
   `WORKERS=3` (default) gives one worker per partition in one container.
   `docker stop` waits 10 s by default, enough for a worker to finish its batch.
-- **k8s:** `k8s-manifests-backend/2kafka/ouster-kafka2db/deployment.yaml`
+- **k8s:** `k8s-manifests-backend/database/ouster-kafka2db/deployment.yaml`
   (WORKERS=1, replicas = partition count; committed at `replicas: 0` so a
   Drone image bump cannot start it before the old writer is stopped).
 
@@ -263,7 +263,7 @@ writer's last committed offsets.
 
 Drone (`.drone.yml`) clones the three lv_* connectors into the build context,
 builds `docker.mogi.io/ouster-kafka2db:<commit-sha>` and bumps
-`2kafka/ouster-kafka2db/deployment.yaml` in `k8s-manifests-backend`. Its
+`database/ouster-kafka2db/deployment.yaml` in `k8s-manifests-backend`. Its
 trigger block is commented out (fleet convention), so ANY branch push builds
 and bumps. `.dockerignore` excludes `**/.git` so the clone step's tokenised
 `.git/config` never reaches the image. A hand build needs the three

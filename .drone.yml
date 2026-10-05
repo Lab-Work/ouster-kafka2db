@@ -66,7 +66,7 @@ steps:
       - git config --global user.email $GIT_AUTHOR_EMAIL
       - git clone https://$GITHUB_PUSH_TOKEN@github.com/blegas78/k8s-manifests-backend.git
       - cd k8s-manifests-backend
-      - yq eval '.spec.template.spec.containers[0].image = "docker.mogi.io/ouster-kafka2db:${DRONE_COMMIT_SHA}"' -i 2kafka/ouster-kafka2db/deployment.yaml
+      - yq eval '.spec.template.spec.containers[0].image = "docker.mogi.io/ouster-kafka2db:${DRONE_COMMIT_SHA}"' -i database/ouster-kafka2db/deployment.yaml
       # If the manifest already points at this commit (e.g. it was set by
       # hand to match, or this build is a re-run of one that already
       # updated it), yq's rewrite is a no-op and `git commit -am` would
